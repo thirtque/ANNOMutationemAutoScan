@@ -1,0 +1,65 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <AssemblyName>ANNOMutationemAutoScan</AssemblyName>
+        <Version>1.0.0</Version>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <LangVersion>latest</LangVersion>
+        <RestoreAdditionalProjectSources>
+            https://api.nuget.org/v3/index.json;
+            https://nuget.bepinex.dev/v3/index.json;
+            https://nuget.samboy.dev/v3/index.json
+        </RestoreAdditionalProjectSources>
+        <RootNamespace>ANNOMutationemAutoScan</RootNamespace>
+
+        <!-- ANNO: Mutationem installation path -->
+        <ANNOMutationemPath>D:\Steam\steamapps\common\ANNOMutationem\</ANNOMutationemPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-be.*" IncludeAssets="compile" />
+        <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="Il2CppInterop.Common">
+            <HintPath>$(ANNOMutationemPath)\BepInEx\core\Il2CppInterop.Common.dll</HintPath>
+        </Reference>
+        <Reference Include="Il2CppInterop.Generator">
+            <HintPath>$(ANNOMutationemPath)\BepInEx\core\Il2CppInterop.Generator.dll</HintPath>
+        </Reference>
+        <Reference Include="Il2CppInterop.HarmonySupport">
+            <HintPath>$(ANNOMutationemPath)\BepInEx\core\Il2CppInterop.HarmonySupport.dll</HintPath>
+        </Reference>
+        <Reference Include="Il2CppInterop.Runtime.dll">
+            <HintPath>$(ANNOMutationemPath)\BepInEx\core\Il2CppInterop.Runtime.dll</HintPath>
+        </Reference>
+        <Reference Include="Assembly-CSharp">
+            <HintPath>$(ANNOMutationemPath)\BepInEx\interop\Assembly-CSharp.dll</HintPath>
+        </Reference>
+        <Reference Include="Il2Cppmscorlib">
+            <HintPath>$(ANNOMutationemPath)\BepInEx\interop\Il2Cppmscorlib.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine">
+            <HintPath>$(ANNOMutationemPath)\BepInEx\interop\UnityEngine.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>$(ANNOMutationemPath)\BepInEx\interop\UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.InputModule">
+            <HintPath>$(ANNOMutationemPath)\BepInEx\interop\UnityEngine.InputModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.InputLegacyModule">
+            <HintPath>$(ANNOMutationemPath)\BepInEx\interop\UnityEngine.InputLegacyModule.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Assets" />
+    </ItemGroup>
+
+    <Target Name="CopyDll" AfterTargets="Build">
+        <Exec Command="COPY &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;$(ANNOMutationemPath)BepInEx\plugins\$(ProjectName).dll&quot; /Y" />
+    </Target>
+</Project>
